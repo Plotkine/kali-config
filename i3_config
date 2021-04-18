@@ -36,9 +36,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+                                                                           
+# Use Mouse+$mod to drag floating windows to their wanted position         
+floating_modifier $mod                                                     
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -115,37 +115,41 @@ set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8 firefox"
-set $ws9 "9 burp"
+set $ws8 "8"
+set $ws9 "9"
 set $ws10 "10"
 
 # i3-gaps config:
 # #gaps
 gaps inner 15
 gaps outer 0
-workspace $ws8 gaps inner 0 #no gaps for firefox
-workspace $ws8 gaps outer 0
-workspace $ws9 gaps inner 0 #no gaps for burp
-workspace $ws9 gaps outer 0
+#workspace $ws2 gaps inner 0 #no gaps for firefox
+#workspace $ws2 gaps outer 0
+#workspace $ws3 gaps inner 0 #no gaps for thunderbird
+#workspace $ws3 gaps outer 0
+#workspace $ws4 gaps inner 0 #no gaps for discord
+#workspace $ws4 gaps outer 0
+#workspace $ws5 gaps inner 0 #no gaps for pdf
+#workspace $ws5 gaps outer 0
 
 # #borders
 for_window [class=".*"] border pixel 4 #active window borders
 smart_borders on #borders only if there is more than one window
 
 # open applications in particular workspaces
-assign [class="Firefox-esr" instance="Navigator"] → $ws8
-assign [class="burp-StartBurp" instance="burp-StartBurp"] → $ws9
+# assign [class="Firefox-esr" instance="Navigator"] → $ws8
+# assign [class="burp-StartBurp" instance="burp-StartBurp"] → $ws9
 
-#startup windows
-exec --no-startup-id i3-msg 'workspace $ws1; exec qterminal; exec qterminal; exec /usr/bin/firefox; exec /usr/bin/burpsuite'
-
-#didnt work: open applications when workspaces are opened
-#workspace $ws8 i3-msg exec --no-startup-id 'exec /usr/bin/firefox'
-
-# startup commands
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg # wallpaper
-exec --no-startup-id vmware-user #enable copy-paste
-exec --no-startup-id /usr/bin/compton #transparency
+# commands to execute after boot
+# exec --no-startup-id vmware-user #enable copy-paste (if VM only)
+exec /usr/bin/xrandr --output eDP --mode 1600x900 #display resolution
+exec /usr/bin/xrandr --output DisplayPort-0 --off #disable display port output display
+exec /usr/bin/sleep 1 && /usr/bin/feh --bg-fill ~/Pictures/wallpaper.jpg #wallpaper; we sleep 1sec to let xrandr finish configuring the resolution
+                                                                         #           otherwise the wallpaper isn't displaying in the correct resolution
+exec /usr/bin/compton #transparency
+exec /usr/bin/i3wsr #auto-namer of workspaces
+exec /usr/bin/redshift #night mode
+exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/qterminal'
 
 # switch to workspace
 bindsym $mod+ampersand workspace number $ws1
