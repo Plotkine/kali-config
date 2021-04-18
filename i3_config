@@ -129,7 +129,7 @@ workspace $ws9 gaps inner 0 #no gaps for burp
 workspace $ws9 gaps outer 0
 
 # #borders
-for_window [class=".*"] border pixel 2 #active window borders
+for_window [class=".*"] border pixel 4 #active window borders
 smart_borders on #borders only if there is more than one window
 
 # open applications in particular workspaces
