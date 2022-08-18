@@ -1,3 +1,7 @@
+before anything, change ram/processor settings
+
+-----------------------------------------
+
 sudo apt install conky
 gestionnaire de paramètres -> session et démarage -> démarrage automatique d'application -> ajouter et mettre conky (commande "conky)
 l'ajouter au tableau de bord aussi
